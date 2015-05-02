@@ -6,9 +6,8 @@ require 'redislike'
 class ResilientQueue
   attr_reader :db
   def initialize(options = {})
-    p options
-    name = options.fetch 'name', 'default'
-    timeout = options.fetch 'timeout', 60
+    name = options.fetch :name, 'default'
+    timeout = options.fetch :timeout, 60
     @pending = "#{name}:pending"
     @claimed = "#{name}:claimed"
     @db = Moneta.new :Daybreak, expires: true, file: ".#{name}.db"
