@@ -15,6 +15,9 @@ Gem::Specification.new do |gem|
   # gem.required_ruby_version = '>= 2.1'
 
   # gem.add_runtime_dependency 'exponential-backoff'
+  gem.add_runtime_dependency 'moneta'
+  gem.add_runtime_dependency 'daybreak'
+  gem.add_runtime_dependency 'redislike'
 
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'kintama'
