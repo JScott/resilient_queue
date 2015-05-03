@@ -17,15 +17,19 @@ class ResilientQueue
     @db.increment "#{@name}:id_count"
   end
 
+  def key(id)
+    "#{@name}:@{id}"
+  end
+
   def enqueue(item)
     id = create_id
-    @db.store "#{@name}:#{id}", item, expires: @timeout
+    @db.store key(id), item, expires: @timeout
     @db.lpush @pending, id
   end
 
   def dequeue
     # TODO: requeuing
     id = @db.rpoplpush @pending, @claimed
-    @db.fetch "#{@name}:#{id}"
+    @db.fetch key(id)
   end
 end
