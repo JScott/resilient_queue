@@ -3,7 +3,7 @@ require 'resilient_queue'
 
 context 'queueing' do
   setup do
-    @timeout = 2
+    @timeout = 1
     @queue = ResilientQueue.new name: 'test', timeout: @timeout
     @queue.db.clear
     @item = 'test_item'
