@@ -1,11 +1,11 @@
 require 'bundler/setup'
 require 'kintama'
-require 'resilient_queue'
+require 'stubborn_queue'
 
 context 'queueing' do
   setup do
     @timeout = 1
-    @queue = ResilientQueue.new name: 'test', timeout: @timeout
+    @queue = StubbornQueue.new name: 'test', timeout: @timeout
     @queue.db.clear
     @item = 'test_item'
   end

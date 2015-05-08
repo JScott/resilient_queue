@@ -1,11 +1,11 @@
 Gem::Specification.new do |gem|
-  gem.name        = 'resilient_queue'
+  gem.name        = 'stubborn_queue'
   gem.version     = '0.1.0'
   gem.licenses    = 'MIT'
   gem.authors     = ['Justin Scott']
   gem.email       = 'jvscott@gmail.com'
-  gem.homepage    = 'http://www.github.com/jscott/resilient_queue/'
-  gem.summary     = 'Resilient Queue'
+  gem.homepage    = 'http://www.github.com/jscott/stubborn_queue/'
+  gem.summary     = 'Stubborn Queue'
   gem.description = 'Queueing in a competent, reliable way with pure Ruby'
 
   gem.files         = `git ls-files`.split("\n")

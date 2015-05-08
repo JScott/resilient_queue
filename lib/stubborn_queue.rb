@@ -2,7 +2,7 @@ require 'moneta'
 require 'daybreak'
 require 'redislike'
 
-class ResilientQueue
+class StubbornQueue
   attr_reader :db
   def initialize(options = {})
     @name = options.fetch :name, 'default'
