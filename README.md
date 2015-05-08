@@ -4,7 +4,7 @@ Sometimes you want to make sure that stuff on your queue gets done. This stubbor
 
 ## Usage
 
-```
+```ruby
 important_data = StubbornQueue.new name: 'important_data', timeout: 60
 length = important_data.enqueue 'top secret!'
 id = important_data.dequeue
