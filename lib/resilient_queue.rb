@@ -24,6 +24,7 @@ class ResilientQueue
     when :id_count
       "#{@name}:id_count"
     else
+      raise "Key for '#{type}' is unrecognized."
     end
     "#{@name}:#{key}"
   end
@@ -36,7 +37,21 @@ class ResilientQueue
     @db.fetch key_for(:item_store, with_id: id), nil
   end
 
+  def claims
+    @db.fetch key_for(:claimed_list), []
+  end
+
+  def recent_claim?(id)
+    @db.fetch key_for(:claimed_flag, with_id: id), false
+  end
+
+  def remove_claim_on(id)
+    @db.lrem key_for(:claimed_list), 0, id
+    @db.delete key_for(:claimed_flag, with_id: id)
+  end
+
   def enqueue(item)
+    process_expired_claims
     id = create_id
     @db.store key_for(:item_store, with_id: id), item
     @db.lpush key_for(:pending_list), id
@@ -49,6 +64,19 @@ class ResilientQueue
     id
   end
 
+  def requeue(id)
+    @db.lpush key_for(:pending_list), id
+  end
+
+  def done?(id)
+    false
+  end
+
   def process_expired_claims
+    claims.each do |id|
+      next if recent_claim? id
+      remove_claim_on id
+      requeue id unless done? id
+    end
   end
 end
