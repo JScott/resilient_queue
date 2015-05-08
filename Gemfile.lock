@@ -27,6 +27,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler
   kintama
   rake
   resilient_queue!
