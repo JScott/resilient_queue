@@ -11,7 +11,8 @@ context 'queueing' do
 
   should 'add and remove items' do
     assert_equal 1, @queue.enqueue(@item)
-    assert_equal @item, @queue.dequeue
+    id = @queue.dequeue
+    assert_equal @item, @queue.lookup(id)
   end
 
   should 'requeue items that don\'t finish' do
