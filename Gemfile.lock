@@ -1,7 +1,8 @@
 PATH
   remote: .
   specs:
-    resilient_queue (0.1.0)
+    stubborn_queue (0.1.0)
+      bundler
       daybreak
       moneta
       redislike
@@ -27,8 +28,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler
   kintama
   rake
-  resilient_queue!
   simplecov
+  stubborn_queue!
