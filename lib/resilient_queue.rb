@@ -1,4 +1,3 @@
-require 'kintama'
 require 'moneta'
 require 'daybreak'
 require 'redislike'
@@ -79,8 +78,6 @@ class ResilientQueue
   end
 
   def process_expired_claims
-    # TODO: needs to be run by an external process, put it in bin
-    # TODO: implement ezmq sockets
     claims.each do |id|
       next if recent_claim? id
       remove_claim_on id

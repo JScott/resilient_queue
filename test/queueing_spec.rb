@@ -1,4 +1,5 @@
 require 'bundler/setup'
+require 'kintama'
 require 'resilient_queue'
 
 context 'queueing' do
