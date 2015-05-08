@@ -1,12 +1,12 @@
 Gem::Specification.new do |gem|
   gem.name        = 'stubborn_queue'
-  gem.version     = '0.1.0'
+  gem.version     = '1.0.0'
   gem.licenses    = 'MIT'
   gem.authors     = ['Justin Scott']
   gem.email       = 'jvscott@gmail.com'
   gem.homepage    = 'http://www.github.com/jscott/stubborn_queue/'
   gem.summary     = 'Stubborn Queue'
-  gem.description = 'Queueing in a competent, reliable way with pure Ruby'
+  gem.description = 'Queueing that keeps on kicking until you tell it to stop.'
 
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- test/**/*`.split("\n")
