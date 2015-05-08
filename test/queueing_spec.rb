@@ -21,4 +21,12 @@ context 'queueing' do
     sleep (@timeout+1)
     assert_equal 2, @queue.enqueue(@item)
   end
+
+  should 'be able to finish items and not requeue them' do
+    assert_equal 1, @queue.enqueue(@item)
+    id = @queue.dequeue
+    @queue.finish id
+    sleep (@timeout+1)
+    assert_equal 1, @queue.enqueue(@item)
+  end
 end
