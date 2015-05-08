@@ -19,6 +19,8 @@ class ResilientQueue
       "#{@name}:claimed"
     when :claimed_flag
       "#{@name}:task:#{with_id}:claimed"
+    when :finished_flag
+      "#{@name}:task:#{with_id}:finished"
     when :item_store
       "#{@name}:@{id}"
     when :id_count
@@ -45,6 +47,10 @@ class ResilientQueue
     @db.fetch key_for(:claimed_flag, with_id: id), false
   end
 
+  def finished?(id)
+    @db.fetch key_for(:finished_flag, with_id: id), false
+  end
+
   def remove_claim_on(id)
     @db.lrem key_for(:claimed_list), 0, id
     @db.delete key_for(:claimed_flag, with_id: id)
@@ -68,15 +74,17 @@ class ResilientQueue
     @db.lpush key_for(:pending_list), id
   end
 
-  def done?(id)
-    false
+  def finish(id)
+    @db.store key_for(:finished_flag, with_id: id), true
   end
 
   def process_expired_claims
+    # TODO: needs to be run by an external process, put it in bin
+    # TODO: implement ezmq sockets
     claims.each do |id|
       next if recent_claim? id
       remove_claim_on id
-      requeue id unless done? id
+      requeue id unless finished? id
     end
   end
 end
