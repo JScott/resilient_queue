@@ -5,7 +5,8 @@ require 'stubborn_queue'
 context 'queueing' do
   setup do
     @timeout = 1
-    @queue = StubbornQueue.new name: 'test', timeout: @timeout
+    @path = '/tmp/.testing'
+    @queue = StubbornQueue.new name: 'test', timeout: @timeout, file: @path
     @queue.db.clear
     @item = 'test_item'
   end
@@ -29,5 +30,9 @@ context 'queueing' do
     @queue.finish id
     sleep (@timeout+1)
     assert_equal 1, @queue.enqueue(@item)
+  end
+
+  should 'place the DB file at the specified path' do
+    assert_equal true, File.exists?(@path)
   end
 end

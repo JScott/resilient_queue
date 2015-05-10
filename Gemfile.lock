@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    stubborn_queue (0.1.0)
+    stubborn_queue (1.0.0)
       bundler
       daybreak
       moneta
