@@ -7,7 +7,8 @@ class StubbornQueue
   def initialize(options = {})
     @name = options.fetch :name, 'default'
     @timeout = options.fetch :timeout, 60
-    @db = Moneta.new :Daybreak, expires: true, file: ".#{@name}.db"
+    path = options.fetch :file, ".#{@name}.db"
+    @db = Moneta.new :Daybreak, expires: true, file: path
   end
 
   def key_for(type, with_id: 0)
