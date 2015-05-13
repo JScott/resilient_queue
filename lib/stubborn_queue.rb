@@ -27,8 +27,6 @@ class StubbornQueue
 
   def key_for(type, with_id: 0)
     key = case type
-    when :item_store
-      "#{@name}:@{id}"
     when :id_count
       "#{@name}:id_count"
     else
