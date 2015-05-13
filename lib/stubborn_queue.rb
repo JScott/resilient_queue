@@ -25,16 +25,6 @@ class StubbornQueue
     end
   end
 
-  def key_for(type, with_id: 0)
-    key = case type
-    when :id_count
-      "#{@name}:id_count"
-    else
-      fail "Key for '#{type}' is unrecognized."
-    end
-    "#{@name}:#{key}"
-  end
-
   def create_id
     @db.increment "#{@name}:id_count"
   end
