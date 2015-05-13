@@ -11,6 +11,20 @@ class StubbornQueue
     @db = Moneta.new :Daybreak, expires: true, file: path
   end
 
+  module Key
+    def list(name)
+      "#{@name}:#{name}"
+    end
+
+    def flag(type, id)
+      "#{@name}:task:#{id}:#{type}"
+    end
+
+    def item(id)
+      "#{@name}:#{id}"
+    end
+  end
+
   def key_for(type, with_id: 0)
     key = case type
     when :pending_list
