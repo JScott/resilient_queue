@@ -26,7 +26,7 @@ class StubbornQueue
     when :id_count
       "#{@name}:id_count"
     else
-      raise "Key for '#{type}' is unrecognized."
+      fail "Key for '#{type}' is unrecognized."
     end
     "#{@name}:#{key}"
   end
