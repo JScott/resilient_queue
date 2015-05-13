@@ -36,7 +36,7 @@ class StubbornQueue
   end
 
   def create_id
-    @db.increment key_for(:id_count)
+    @db.increment "#{@name}:id_count"
   end
 
   def lookup(id)
