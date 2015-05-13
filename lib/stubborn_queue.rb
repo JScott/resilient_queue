@@ -12,15 +12,15 @@ class StubbornQueue
   end
 
   module Key
-    def list(name)
+    def self.list(name)
       "#{@name}:#{name}"
     end
 
-    def flag(type, id)
+    def self.flag(type, id)
       "#{@name}:task:#{id}:#{type}"
     end
 
-    def item(id)
+    def self.item(id)
       "#{@name}:#{id}"
     end
   end
