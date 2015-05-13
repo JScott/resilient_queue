@@ -27,10 +27,6 @@ class StubbornQueue
 
   def key_for(type, with_id: 0)
     key = case type
-    when :pending_list
-      "#{@name}:pending"
-    when :claimed_list
-      "#{@name}:claimed"
     when :claimed_flag
       "#{@name}:task:#{with_id}:claimed"
     when :finished_flag
