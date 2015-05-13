@@ -54,7 +54,7 @@ class StubbornQueue
   end
 
   def claims
-    @db.fetch key_for(:claimed_list), []
+    @db.fetch Key::list(:claimed), []
   end
 
   def recent_claim?(id)
@@ -66,7 +66,7 @@ class StubbornQueue
   end
 
   def remove_claim_on(id)
-    @db.lrem key_for(:claimed_list), 0, id
+    @db.lrem Key::list(:claimed), 0, id
     @db.delete key_for(:claimed_flag, with_id: id)
   end
 
@@ -74,18 +74,18 @@ class StubbornQueue
     process_expired_claims
     id = create_id
     @db.store key_for(:item_store, with_id: id), item
-    @db.lpush key_for(:pending_list), id
+    @db.lpush Key::list(:pending), id
   end
 
   def dequeue
     process_expired_claims
-    id = @db.rpoplpush key_for(:pending_list), key_for(:claimed_list)
+    id = @db.rpoplpush Key::list(:pending), Key::list(:claimed)
     @db.store key_for(:claimed_flag, with_id: id), true, expires: @timeout
     id
   end
 
   def requeue(id)
-    @db.lpush key_for(:pending_list), id
+    @db.lpush Key::list(:pending), id
   end
 
   def finish(id)
