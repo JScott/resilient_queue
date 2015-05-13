@@ -42,7 +42,7 @@ class StubbornQueue
   end
 
   def lookup(id)
-    @db.fetch key_for(:item_store, with_id: id), nil
+    @db.fetch Key.item(id), nil
   end
 
   def claims
@@ -65,7 +65,7 @@ class StubbornQueue
   def enqueue(item)
     process_expired_claims
     id = create_id
-    @db.store key_for(:item_store, with_id: id), item
+    @db.store Key.item(id), item
     @db.lpush Key.list(:pending), id
   end
 
