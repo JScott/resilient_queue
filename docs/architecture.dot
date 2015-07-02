@@ -1,0 +1,23 @@
+digraph architecture {
+  # label="Stubborn Queue"
+  # labelloc="top"
+
+  items [label="Items\n(Objects)",shape=box]
+  pending [label="Pending\n(IDs)",shape=box]
+  claimed_flag [label="claimed?\n(expiring flag)",shape=box]
+  claimed_list [label="Claimed\n(IDs)",shape=box]
+  enqueue [label="#enqueue",shape=none,fontname="Times-Italic"]
+  lookup [label="#lookup",shape=none,fontname="Times-Italic"]
+  process [label="#process_expired_claims",shape=none,fontname="Times-Italic"]
+
+  enqueue->items
+  enqueue->pending
+  pending->claimed_list [label="#dequeue",fontname="Times-Italic"]
+  claimed_list->claimed_flag
+  lookup->items [dir="both"]
+  process->claimed_flag [label="1. check"]
+  process->claimed_list [label="2. delete"]
+  process->pending [label="3. add?"]
+
+  { rank=same; enqueue lookup process }
+}
