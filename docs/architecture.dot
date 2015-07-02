@@ -9,6 +9,8 @@ digraph architecture {
   enqueue [label="#enqueue",shape=none,fontname="Times-Italic"]
   lookup [label="#lookup",shape=none,fontname="Times-Italic"]
   process [label="#process_expired_claims",shape=none,fontname="Times-Italic"]
+  finish [label="#finish",shape=none,fontname="Times-Italic"]
+  finished_flag [label="finished?\n(flag)",shape=box]
 
   enqueue->items
   enqueue->pending
@@ -18,6 +20,8 @@ digraph architecture {
   process->claimed_flag [label="1. check"]
   process->claimed_list [label="2. delete"]
   process->pending [label="3. add?"]
+  finish->finished_flag
 
-  { rank=same; enqueue lookup process }
+  { rank=same; enqueue lookup process finish }
+  { rank=same; finished_flag claimed_flag }
 }
